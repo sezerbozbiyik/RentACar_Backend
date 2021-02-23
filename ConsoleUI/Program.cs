@@ -18,7 +18,7 @@ namespace ConsoleUI
 
             //CustomerTest()
             //UserTest();
-            //RentalTest();
+            RentalTest();
 
         }
 
@@ -58,10 +58,10 @@ namespace ConsoleUI
             RentalManager rentalManager = new RentalManager(new EfRentalDal());
             var result = rentalManager.Add(new Rental
             {
-                CarId = 3,
-                CustomerId = 3,
+                CarId = 1,
+                CustomerId = 1,
                 RentDate = DateTime.Now,
-                ReturnDate = DateTime.Now.AddDays(10)
+                ReturnDate = DateTime.Now.AddDays(5)
             });
             Console.WriteLine(result.Message);
         }
