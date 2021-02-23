@@ -49,7 +49,7 @@ namespace Business.Concrete
         }
         public IDataResult<Car> GetCarsById(int id)
         {
-            return new SuccessDataResult<Car>(_icarDal.Get(c => c.Id == id));
+            return new SuccessDataResult<Car>(_icarDal.Get(c => c.CarId == id));
         }
 
         public IDataResult<List<Car>> GetCarsByBrandId(int id)

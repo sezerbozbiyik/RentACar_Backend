@@ -15,6 +15,71 @@ namespace ConsoleUI
             //CarTest();
             //BrandTest();
             //ColorTest();
+
+            //CustomerTest()
+            //UserTest();
+            //RentalTest();
+
+        }
+
+        private static void CustomerTest()
+        {
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            Console.WriteLine("-----Add-----");
+            var result = customerManager.Add(new Customer
+            {
+                CustomerId = 6,
+                CompanyName = "Vural a.ş.",
+                UserId = 2,
+            });
+            Console.WriteLine(result.Message);
+
+            Console.WriteLine("-----Update---- -");
+            var result1 = customerManager.Update(new Customer
+            {
+                CustomerId = 6,
+                CompanyName = "Vural a.ş.",
+                UserId = 5,
+            });
+            Console.WriteLine(result1.Message);
+
+            Console.WriteLine("-----Delete-----");
+            var result2 = customerManager.Delete(new Customer
+            {
+                CustomerId = 6,
+                CompanyName = "Vural a.ş.",
+                UserId = 5,
+            });
+            Console.WriteLine(result2.Message);
+        }
+
+        private static void RentalTest()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            var result = rentalManager.Add(new Rental
+            {
+                CarId = 3,
+                CustomerId = 3,
+                RentDate = DateTime.Now,
+                ReturnDate = DateTime.Now.AddDays(10)
+            });
+            Console.WriteLine(result.Message);
+        }
+
+        private static void UserTest()
+        {
+            Console.WriteLine("-----Add-----");
+            UserManager userManager = new UserManager(new EfUserDal());
+            var result1 = userManager.Add(new User { UserId=7,FirstName = "Mustafa", LastName = "İncik", Email = "incikm@gmail.com", Password = "12345" });
+            Console.WriteLine(result1.Message);
+            
+            Console.WriteLine("-----Update-----");
+            var result2 = userManager.Update(new User {UserId=7, FirstName = "Mahmut", LastName = "İncik", Email = "incikm@gmail.com", Password = "12345" });
+            Console.WriteLine(result2.Message);
+
+            Console.WriteLine("-----Delete-----");
+            var result3 = userManager.Delete(new User { UserId=7,FirstName = "Mahmut", LastName = "İncik", Email = "incikm@gmail.com", Password = "12345" });
+            Console.WriteLine(result3.Message);
         }
 
         private static void ColorTest()
@@ -81,10 +146,10 @@ namespace ConsoleUI
             Console.WriteLine("Id = 3 olan marka: " + resultId.Data.BrandName);
 
             Console.WriteLine("-----Add-----");
-            var result1=brandManager.Add(new Brand
+            var result1 = brandManager.Add(new Brand
             {
-                BrandId=7,
-                BrandName="BMW"
+                BrandId = 7,
+                BrandName = "BMW"
             });
             Console.WriteLine(result1.Message);
 
@@ -135,7 +200,7 @@ namespace ConsoleUI
             Console.WriteLine("---------ADD---------");
             var result1 = carManager.Add(new Car()
             {
-                Id = 10,
+                CarId = 10,
                 BrandId = 2,
                 ColorId = 3,
                 DailyPrice = 950,
