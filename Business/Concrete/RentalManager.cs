@@ -42,11 +42,6 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll());
         }
 
-        public IDataResult<Rental> GetById()
-        {
-            throw new NotImplementedException();
-        }
-
         public IResult Update(Rental rental)
         {
             _rentalDal.Update(rental);
