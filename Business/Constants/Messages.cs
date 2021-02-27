@@ -8,10 +8,10 @@ namespace Business.Constants
     {
         public static string MaintenanceTime = "Sistem Bakımda.";
 
-        public static string CarAdded="Araba Eklendi.";
+        public static string CarAdded = "Araba Eklendi.";
         public static string CarInvalidPrice = "Arabanın günlük fiyatı 0'dan büyük olmalıdır!!";
-        public static string CarInvalidName= "Arabanın ismi minimum 2 karakter olmalıdır!!";
-        public static string CarsListed="Arabalar Listelendi.";
+        public static string CarInvalidName = "Arabanın ismi minimum 2 karakter olmalıdır!!";
+        public static string CarsListed = "Arabalar Listelendi.";
 
         public static string ColorAdded = "Renk Eklendi.";
         public static string ColorDeleted = "Renk Silindi.";
