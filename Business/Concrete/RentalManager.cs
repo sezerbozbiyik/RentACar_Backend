@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -24,13 +25,14 @@ namespace Business.Concrete
         [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
-            var result =_rentalDal.GetAll(r => r.CarId == rental.CarId).OrderBy(o=>o.ReturnDate).Last();
-            if (result.ReturnDate>rental.RentDate) 
+
+            var result = _rentalDal.GetAll(r => r.CarId == rental.CarId).OrderBy(o => o.ReturnDate).Last();
+            if (result.ReturnDate > rental.RentDate)
             {
-               return new ErrorResult("Araba Teslim Edilmemiştir.");
+                return new ErrorResult("Araba Teslim Edilmemiştir.");
             }
             _rentalDal.Add(rental);
-            return new SuccessResult("Araba Kiralanmıştır.");
+            return new SuccessResult("Araba kiralanmıştır.");
         }
 
         public IResult Delete(Rental rental)
