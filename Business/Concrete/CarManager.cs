@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspect.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -24,6 +25,7 @@ namespace Business.Concrete
             _icarDal = icarDal;
         }
 
+        [SecuredOperation("car.add,admin")]
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
@@ -31,6 +33,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarAdded);
         }
 
+        [SecuredOperation("admin")]
         [ValidationAspect(typeof(CarValidator))]
         public IDataResult<List<Car>> GetAll()
         {
@@ -43,7 +46,7 @@ namespace Business.Concrete
         [ValidationAspect(typeof(CarValidator))]
         public IDataResult<Car> GetCarsById(int id)
         {
-            return new SuccessDataResult<Car>(_icarDal.Get(c => c.CarId == id));
+            return new SuccessDataResult<Car>(_icarDal.Get(c => c.Id == id));
         }
 
         [ValidationAspect(typeof(CarValidator))]

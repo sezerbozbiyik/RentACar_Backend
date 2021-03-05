@@ -32,7 +32,7 @@ namespace Business.Concrete
 
         public IDataResult<Brand> GetByBrandId(int id)
         {
-            return new SuccessDataResult<Brand>(_brandal.Get(b=>b.BrandId==id));
+            return new SuccessDataResult<Brand>(_brandal.Get(b=>b.Id==id));
         }
 
         public IResult Add(Brand brand)

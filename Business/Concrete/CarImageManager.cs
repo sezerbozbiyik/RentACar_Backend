@@ -112,7 +112,7 @@ namespace Business.Concrete
 
         public IDataResult<CarImage> GetImagesByImageId(int id)
         {
-            return new SuccessDataResult<CarImage>(_carImageDal.Get(i=>i.CarImageId==id));
+            return new SuccessDataResult<CarImage>(_carImageDal.Get(i=>i.Id==id));
         }
     }
 }

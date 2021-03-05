@@ -3,8 +3,9 @@ using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
-using Entities.Concrete;
+using Core.Entities.Concrete;
 using System;
+using Entities.Concrete;
 
 namespace ConsoleUI
 {
@@ -28,7 +29,7 @@ namespace ConsoleUI
             Console.WriteLine("-----Add-----");
             var result = customerManager.Add(new Customer
             {
-                CustomerId = 6,
+                Id = 6,
                 CompanyName = "Vural a.ş.",
                 UserId = 2,
             });
@@ -37,7 +38,7 @@ namespace ConsoleUI
             Console.WriteLine("-----Update---- -");
             var result1 = customerManager.Update(new Customer
             {
-                CustomerId = 6,
+                Id = 6,
                 CompanyName = "Vural a.ş.",
                 UserId = 5,
             });
@@ -46,7 +47,7 @@ namespace ConsoleUI
             Console.WriteLine("-----Delete-----");
             var result2 = customerManager.Delete(new Customer
             {
-                CustomerId = 6,
+                Id = 6,
                 CompanyName = "Vural a.ş.",
                 UserId = 5,
             });
@@ -70,16 +71,8 @@ namespace ConsoleUI
         {
             Console.WriteLine("-----Add-----");
             UserManager userManager = new UserManager(new EfUserDal());
-            var result1 = userManager.Add(new User { UserId=7,FirstName = "Mustafa", LastName = "İncik", Email = "incikm@gmail.com", Password = "12345" });
+            var result1 = userManager.Add(new User { Id=7,FirstName = "sezer", LastName = "bozbıyık", Email = "sezerb@gmail.com",});
             Console.WriteLine(result1.Message);
-            
-            Console.WriteLine("-----Update-----");
-            var result2 = userManager.Update(new User {UserId=7, FirstName = "Mahmut", LastName = "İncik", Email = "incikm@gmail.com", Password = "12345" });
-            Console.WriteLine(result2.Message);
-
-            Console.WriteLine("-----Delete-----");
-            var result3 = userManager.Delete(new User { UserId=7,FirstName = "Mahmut", LastName = "İncik", Email = "incikm@gmail.com", Password = "12345" });
-            Console.WriteLine(result3.Message);
         }
 
         private static void ColorTest()
@@ -91,7 +84,7 @@ namespace ConsoleUI
             {
                 foreach (var color in result.Data)
                 {
-                    Console.WriteLine(color.ColorId + " - " + color.ColorName);
+                    Console.WriteLine(color.Id + " - " + color.ColorName);
                 }
             }
             else
@@ -102,7 +95,7 @@ namespace ConsoleUI
             Console.WriteLine("-----Add-----");
             var result1 = colorManager.Add(new Color
             {
-                ColorId = 7,
+                Id = 7,
                 ColorName = "Eflatun"
             });
             Console.WriteLine(result1.Message);
@@ -110,7 +103,7 @@ namespace ConsoleUI
             Console.WriteLine("-----Update-----");
             var result2 = colorManager.Update(new Color
             {
-                ColorId = 7,
+                Id = 7,
                 ColorName = "Mor"
             });
             Console.WriteLine(result2.Message);
@@ -118,7 +111,7 @@ namespace ConsoleUI
             Console.WriteLine("-----Delete-----");
             var result3 = colorManager.Delete(new Color
             {
-                ColorId = 7,
+                Id = 7,
                 ColorName = "Mor"
             });
             Console.WriteLine(result3.Message);
@@ -133,7 +126,7 @@ namespace ConsoleUI
             {
                 foreach (var b in result.Data)
                 {
-                    Console.WriteLine(b.BrandId+" "+b.BrandName);
+                    Console.WriteLine(b.Id+" "+b.BrandName);
                 }
             }
             else
@@ -148,7 +141,7 @@ namespace ConsoleUI
             Console.WriteLine("-----Add-----");
             var result1 = brandManager.Add(new Brand
             {
-                BrandId = 7,
+                Id = 7,
                 BrandName = "BMW"
             });
             Console.WriteLine(result1.Message);
@@ -156,7 +149,7 @@ namespace ConsoleUI
             Console.WriteLine("-----Update-----");
             var result2 = brandManager.Update(new Brand
             {
-                BrandId = 7,
+                Id = 7,
                 BrandName = "Mercedes"
             });
             Console.WriteLine(result2.Message);
@@ -164,7 +157,7 @@ namespace ConsoleUI
             Console.WriteLine("-----Delete-----");
             var result3 = brandManager.Delete(new Brand
             {
-                BrandId = 7,
+                Id = 7,
                 BrandName = "Mercedes"
             });
             Console.WriteLine(result3.Message);
@@ -200,7 +193,7 @@ namespace ConsoleUI
             Console.WriteLine("---------ADD---------");
             var result1 = carManager.Add(new Car()
             {
-                CarId = 10,
+                Id = 10,
                 BrandId = 2,
                 ColorId = 3,
                 DailyPrice = 950,
