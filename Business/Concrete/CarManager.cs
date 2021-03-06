@@ -2,6 +2,9 @@
 using Business.BusinessAspect.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Performance;
+using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
@@ -13,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace Business.Concrete
 {
@@ -27,14 +31,16 @@ namespace Business.Concrete
 
         [SecuredOperation("car.add,admin")]
         [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Add(Car car)
         {
             _icarDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
         }
 
-        [SecuredOperation("admin")]
+        [CacheAspect]
         [ValidationAspect(typeof(CarValidator))]
+
         public IDataResult<List<Car>> GetAll()
         {
             if (DateTime.Now.Hour == 23)
@@ -43,28 +49,36 @@ namespace Business.Concrete
             }
             return new SuccessDataResult<List<Car>>(_icarDal.GetAll(), Messages.CarsListed);
         }
-        [ValidationAspect(typeof(CarValidator))]
+
+        [PerformanceAspect(2)]
         public IDataResult<Car> GetCarsById(int id)
         {
+            Thread.Sleep(5000);
             return new SuccessDataResult<Car>(_icarDal.Get(c => c.Id == id));
+            
         }
 
-        [ValidationAspect(typeof(CarValidator))]
         public IDataResult<List<Car>> GetCarsByBrandId(int id)
         {
             return new SuccessDataResult<List<Car>>(_icarDal.GetAll(c => c.BrandId == id));
         }
 
-        [ValidationAspect(typeof(CarValidator))]
         public IDataResult<List<Car>> GetCarsByColorId(int id)
         {
             return new SuccessDataResult<List<Car>>(_icarDal.GetAll(c => c.ColorId == id));
         }
 
-        [ValidationAspect(typeof(CarValidator))]
         public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
             return new SuccessDataResult<List<CarDetailDto>>(_icarDal.GetCarDetails());
+        }
+
+        [TransactionScopeAspect]
+        public IResult TransactionalOperation(Car car)
+        {
+            _icarDal.Update(car);
+            _icarDal.Add(car);
+            return new SuccessResult();
         }
     }
 }
