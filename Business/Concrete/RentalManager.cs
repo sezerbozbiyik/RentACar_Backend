@@ -21,14 +21,16 @@ namespace Business.Concrete
             _rentalDal = rentalDal;
         }
 
-        [ValidationAspect(typeof(RentalValidator))]
+        //[ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
-
-            var result = _rentalDal.GetAll(r => r.CarId == rental.CarId).OrderBy(o => o.ReturnDate).Last();
-            if (result.ReturnDate > rental.RentDate)
+            if (_rentalDal.Get(r=>r.CarId==rental.CarId)!=null)
             {
-                return new ErrorResult("Araba Teslim Edilmemiştir.");
+                var result = _rentalDal.GetAll(r => r.CarId == rental.CarId).OrderBy(o => o.ReturnDate).Last();
+                if (result.ReturnDate > rental.RentDate && result.RentDate != null)
+                {
+                    return new ErrorResult("araba teslim edilmemiştir.");
+                }
             }
             _rentalDal.Add(rental);
             return new SuccessResult("Araba kiralanmıştır.");

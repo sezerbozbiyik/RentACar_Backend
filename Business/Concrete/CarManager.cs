@@ -40,7 +40,6 @@ namespace Business.Concrete
 
         [CacheAspect]
         [ValidationAspect(typeof(CarValidator))]
-
         public IDataResult<List<Car>> GetAll()
         {
             if (DateTime.Now.Hour == 23)
@@ -55,7 +54,7 @@ namespace Business.Concrete
         {
             Thread.Sleep(5000);
             return new SuccessDataResult<Car>(_icarDal.Get(c => c.Id == id));
-            
+
         }
 
         public IDataResult<List<Car>> GetCarsByBrandId(int id)

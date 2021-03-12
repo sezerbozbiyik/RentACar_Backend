@@ -32,7 +32,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Color>> GetAll()
         {
-            if (DateTime.Now.Hour==17)
+            if (DateTime.Now.Hour==24)
             {
                 return new ErrorDataResult<List<Color>>(Messages.MaintenanceTime);
             }
