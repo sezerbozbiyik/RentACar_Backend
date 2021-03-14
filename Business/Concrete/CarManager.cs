@@ -52,7 +52,7 @@ namespace Business.Concrete
         [PerformanceAspect(2)]
         public IDataResult<Car> GetCarsById(int id)
         {
-            Thread.Sleep(5000);
+            //Thread.Sleep(5000);
             return new SuccessDataResult<Car>(_icarDal.Get(c => c.Id == id));
 
         }
