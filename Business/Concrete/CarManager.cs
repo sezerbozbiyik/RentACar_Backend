@@ -42,7 +42,7 @@ namespace Business.Concrete
         [ValidationAspect(typeof(CarValidator))]
         public IDataResult<List<Car>> GetAll()
         {
-            if (DateTime.Now.Hour == 23)
+            if (DateTime.Now.Hour == 11)
             {
                 return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
             }
@@ -78,6 +78,21 @@ namespace Business.Concrete
             _icarDal.Update(car);
             _icarDal.Add(car);
             return new SuccessResult();
+        }
+
+        public IDataResult<CarDetailDto> GetCarDetailsById(int id)
+        {
+            return new SuccessDataResult<CarDetailDto>(_icarDal.GetCarDetailsByCarId(id));
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByBrandId(int id)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_icarDal.GetCarDetailsByBrandId(id));
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByColorId(int id)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_icarDal.GetCarDetailsByColorId(id));
         }
     }
 }
