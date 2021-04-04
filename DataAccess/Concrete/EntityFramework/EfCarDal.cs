@@ -65,6 +65,31 @@ namespace DataAccess.Concrete.EntityFramework
             return GetCarDetails().Where(c => c.CarID == id).SingleOrDefault();
         }
 
+        public List<CarDetailDto> GetCarDetailsByColorAndBrandId(int colorId, int brandId)
+        {
+            using (RentDatabaseContext context = new RentDatabaseContext())
+            {
+                var result = from c in context.Cars
+                             where c.ColorId == colorId
+                             where c.BrandId==brandId
+                             join b in context.Brands
+                             on c.BrandId equals b.Id
+                             join co in context.Colors
+                             on c.ColorId equals co.Id
+                             select new CarDetailDto
+                             {
+                                 CarID = c.Id,
+                                 CarName = c.CarName,
+                                 ColorName = co.ColorName,
+                                 BrandName = b.BrandName,
+                                 DailyPrice = c.DailyPrice,
+                                 ModelYear = c.ModelYear,
+                                 CarDescription = c.CarDescription
+                             };
+                return result.ToList();
+            }
+        }
+
         public List<CarDetailDto> GetCarDetailsByColorId(int id)
         {
             using (RentDatabaseContext context = new RentDatabaseContext())

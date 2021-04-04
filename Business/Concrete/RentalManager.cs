@@ -21,10 +21,10 @@ namespace Business.Concrete
             _rentalDal = rentalDal;
         }
 
-        //[ValidationAspect(typeof(RentalValidator))]
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
-            if (_rentalDal.Get(r=>r.CarId==rental.CarId)!=null)
+            if (_rentalDal.GetAll(r=>r.CarId==rental.CarId).Count >0)
             {
                 var result = _rentalDal.GetAll(r => r.CarId == rental.CarId).OrderBy(o => o.ReturnDate).Last();
                 if (result.ReturnDate > rental.RentDate && result.RentDate != null)
