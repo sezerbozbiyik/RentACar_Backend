@@ -32,6 +32,16 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CustomerDeleted);
         }
 
+        public IDataResult<Customer> GetByUserId(int id)
+        {
+            var result =_customerDal.Get(c => c.UserId == id);
+            if (result!=null)
+            {
+                return new SuccessDataResult<Customer>(result);
+            }
+            return new ErrorDataResult<Customer>();
+        }
+
         public IResult Update(Customer customer)
         {
             _customerDal.Update(customer);
